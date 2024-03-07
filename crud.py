@@ -5,10 +5,8 @@ from sqlalchemy import select
 class CRUD:
     async def get_all(self, async_session: async_sessionmaker[AsyncSession]):
         async with async_session() as session:
-            statement = select(UserManagement).order_by(UserManagement.id)
-            
+            statement = select(UserManagement).order_by(UserManagement.createTime)
             result = await session.execute(statement)
-            
             return result.scalars()
     
     async def add(self, async_session: async_sessionmaker[AsyncSession], usermanagement: UserManagement):
@@ -30,12 +28,11 @@ class CRUD:
             result = await session.execute(statement)
             usermanagement = result.scalars().one()
             
-            usermanagement.email = data['email']
-            usermanagement.password = data['password']
-            usermanagement.name = data['name']
-            
-            await session.commit()
-            
+            # Update data
+            for key, value in data.items():
+                setattr(usermanagement, key, value)
+                
+            await session.commit() 
             return usermanagement
         
     async def delete(self, async_session: async_sessionmaker[AsyncSession], usermanagement: UserManagement):
