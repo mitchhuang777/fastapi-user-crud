@@ -30,7 +30,7 @@ class UserCreateModel(BaseModel):
     @classmethod
     def password_validation(cls, v: str, email: str):
         # Check password whether longer than 8 characters.
-        if len(v) < 4:
+        if len(v) < 8:
             raise ValueError('Password length should be at least 8 characters')
         # Check password contains at least one digit.
         if not any(char.isdigit() for char in v):
