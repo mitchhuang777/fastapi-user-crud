@@ -9,7 +9,7 @@ from models import UserManagement
 import uuid
 
 app = FastAPI(
-    title="Noted API", description="This is a simple note taking service", docs_url="/"
+    title="CRUD API", description="This is a CRUD API service.", docs_url="/"
 )
 
 session = async_sessionmaker(
@@ -18,13 +18,12 @@ session = async_sessionmaker(
 )
 db = CRUD()
 
-@app.get("/usermangement", response_model=List[UserManagementModel])
+@app.get("/usermanagement", response_model=List[UserManagementModel])
 async def get_all_user():
     usermanagement = await db.get_all(session)
-    
     return usermanagement
 
-@app.post("/usermangement", status_code=HTTPStatus.CREATED)
+@app.post("/usermanagement", status_code=HTTPStatus.CREATED)
 async def create_user(user_data : UserCreateModel):
     new_user = UserManagement(
         id = str(uuid.uuid4()),
@@ -37,18 +36,31 @@ async def create_user(user_data : UserCreateModel):
     
     return usermanagement
 
-@app.get('/usermangement/{usermanagement_id}')
+@app.get('/usermanagement/{usermanagement_id}')
 async def get_user_by_id(usermanagement_id):
     usermanagement = await db.get_by_id(session, usermanagement_id)
     return usermanagement
 
-@app.patch("/usermangement/{usermanagement_id}")
+@app.patch("/usermanagement/{usermanagement_id}")
 async def update_user(usermanagement_id: str, data: UserCreateModel):
-    usermanagement = await db.update(session, usermanagement_id, data={
-        'name': data.name,
-        'email': data.email,
-        'password': data.password
-    })
+    update_data = {}
+
+    # Get UserCreateModel's all attribute name
+    fields = data.dict().keys()
+
+    # Add the non-null attribute into update_data dictionary
+    for field in fields:
+        value = getattr(data, field)
+        if value is not None:
+            update_data[field] = value
+
+    # If not update any data, show the error message
+    if not update_data:
+        return {"error": "No fields provided for update"}, 400
+
+    # Update the data
+    usermanagement = await db.update(session, usermanagement_id, data=update_data)
+    
     return usermanagement
 
 @app.delete('/usermanagement/{usermanagement_id}', status_code=HTTPStatus.NO_CONTENT)
