@@ -10,5 +10,3 @@ engine = create_async_engine(
     echo = True
 )
 
-class Base(DeclarativeBase):
-    pass
