@@ -11,7 +11,7 @@
     - Delete a user.
 4. Create a FastAPI router to handle the API endpoints for user management.
 5. Implement input validation for user input and handle errors gracefully with appropriate status codes and error messages.
-6. Start the FastAPI application and test the endpoints using tools like curl or Postman.
+6. Start the FastAPI application and test the endpoints using tools like `curl` or `Postman`.
 
 ***
 
