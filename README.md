@@ -30,12 +30,18 @@
 5. 為使⽤者輸入實施輸入驗證，並使⽤適當的狀態碼和錯誤訊息優雅地處理錯誤。
 6. 啟動 FastAPI 應⽤程式，並使⽤ `curl` 或 `Postman` 等⼯具測試端點。
 
+# Demo
+Technical : Deploy the application on AWS EC2 using Nginx.
+
+- Fast API Website:  `http://13.238.194.179`
+- Fast API Document: `http://13.238.194.179/redoc`
+
 ***
 # API Document
 ## Get All User
 Statement : Get all user list from database
 
-`$ curl -X GET http://127.0.0.1:8000/usermanagement`
+`$ curl -X GET http://13.238.194.179/usermanagement`
 
 ```
 - 200 Successful Response
@@ -44,7 +50,7 @@ Statement : Get all user list from database
 ## Create User
 Statement : Create one user
 
-`$ curl.exe -X POST -H "Content-Type: application/json" -d '{"name": "Bill Gates", "email": "john@example.com", "password": "passwordA1"}' http://127.0.0.1:8000/usermanagement`
+`$ curl.exe -X POST -H "Content-Type: application/json" -d '{"name": "Bill Gates", "email": "john@example.com", "password": "passwordA1"}' http://13.238.194.179/usermanagement`
 
 - name: required
 - email: required
@@ -74,7 +80,7 @@ Statement : Create one user
 ## Get user by id
 Statement : Get one user 
 
-`$ curl http://127.0.0.1:8000/usermanagement/{usermanagement_id}`
+`$ curl http://13.238.194.179/usermanagement/{usermanagement_id}`
 
 ```
 - 200 Successful Response
@@ -88,7 +94,7 @@ Statement : Update *name*, *email*, *password*, by userid.
 - email: required
 - password: required
 
-`$ curl -X PATCH -H "Content-Type: application/json" -d '{"name": "Bill Gates", "email": "helloworld@gmail.com", "password": "Th1sA3eCREtP3D#"}' http://127.0.0.1:8000/usermanagement/{usermanagement_id}`
+`$ curl -X PATCH -H "Content-Type: application/json" -d '{"name": "Bill Gates", "email": "helloworld@gmail.com", "password": "Th1sA3eCREtP3D#"}' http://13.238.194.179/usermanagement/{usermanagement_id}`
 
 ```json
 {
@@ -105,7 +111,7 @@ Statement : Update *name*, *email*, *password*, by userid.
 ## Delete user
 Statement : Delete specific user by id. Replace **usermanagement_id** to the real usermangement_id
 
-`$ curl -X DELETE http://127.0.0.1:8000/usermanagement/{usermanagement_id}`
+`$ curl -X DELETE http://13.238.194.179/usermanagement/{usermanagement_id}`
 
 ```
 - 204 Successful Response
