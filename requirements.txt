@@ -2,3 +2,5 @@ fastapi==0.110.0
 pydantic==2.6.3
 python-dotenv==1.0.1
 SQLAlchemy==2.0.28
+asyncpg==0.29.0
+email-validator==2.1.1
